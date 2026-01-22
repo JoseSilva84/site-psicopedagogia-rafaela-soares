@@ -104,7 +104,7 @@ ${mensagem}
 
   new ImageRotator({
     elementId: "slider",
-    images: ["../img/1.png", "../img/2.png"],
+    images: ["./img/1.png", "./img/2.png"],
     interval: 2000,
   });
 
