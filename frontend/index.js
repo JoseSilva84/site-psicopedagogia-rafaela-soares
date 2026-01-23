@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (preloader) {
     window.addEventListener("load", () => {
       preloader.classList.add("opacity-0");
-      setTimeout(() => preloader.remove(), 4000);
+      setTimeout(() => preloader.remove(), 10000);
     });
   }
 
