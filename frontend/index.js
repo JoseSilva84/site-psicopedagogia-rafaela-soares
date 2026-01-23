@@ -1,4 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
+  
+  // Movimento entre os links do menu
+  document.querySelectorAll(".menu-link").forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute("href");
+      const target = document.querySelector(targetId);
+
+      if (!target) return;
+
+      // Força o efeito visual antes do scroll
+      this.classList.add("scale-90");
+
+      setTimeout(() => {
+        this.classList.remove("scale-90");
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 150); // tempo do efeito
+    });
+  });
+
   // MENU MOBILE
   const menuBtn = document.getElementById("menuBtn");
   const mobileMenu = document.getElementById("mobileMenu");
