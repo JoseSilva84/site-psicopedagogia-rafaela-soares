@@ -197,8 +197,17 @@
             </a>
 
             <div class="flex flex-col items-center">
-                <strong class="text-[#833675] font-Dancing text-2xl">Rafaela Soares</strong>
-                <strong class="text-[#833675]">🌟Psicopedagoga🌟</strong>
+                <div class="ml-10 mx-50">
+                    <strong class="text-[#833675] font-Dancing text-2xl">Rafaela Soares</strong>
+                    <strong class="text-[#833675]">🌟Psicopedagoga🌟</strong>
+                </div>
+                <!-- BOTÃO HAMBURGUER -->
+                <button id="menuBtn" class="md:hidden text-[#833675] focus:outline-none ml-30" aria-label="Abrir menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
             <div class="hidden md:flex space-x-8 text-[#833675] font-medium">
                 <a href="#"
@@ -215,13 +224,6 @@
                     class="menu-link hover:underline decoration-[#833675] underline-offset-2 hover:text-[#833675] hover:shadow-lg">Contato</a>
             </div>
         </nav>
-        <!-- BOTÃO HAMBURGUER -->
-        <button id="menuBtn" class="md:hidden text-[#833675] focus:outline-none" aria-label="Abrir menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
 
         </div>
 
@@ -229,7 +231,7 @@
         <div id="mobileMenu"
             class="md:hidden absolute top-full left-0 w-full bg-terciary shadow-lg overflow-hidden max-h-0 transition-all duration-300">
             <nav class="flex flex-col px-6 py-4 space-y-4 text-[#833675] text-center font-medium">
-                <a href="#" class="mobile-link">Início</a>
+                <a href="#inicio" class="mobile-link">Início</a>
                 <a href="#sobre" class="mobile-link">Sobre</a>
                 <a href="#abordagem" class="mobile-link">Abordagem</a>
                 <a href="#servicos" class="mobile-link">Serviços</a>
@@ -239,7 +241,7 @@
     </header>
 
     <!-- HERO -->
-    <section class="bg-secondary py-20 px-6 relative overflow-hidden">
+    <section id="inicio" class="bg-secondary py-20 px-6 relative overflow-hidden">
         <!-- detalhe decorativo -->
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white/40 pointer-events-none"></div>
 

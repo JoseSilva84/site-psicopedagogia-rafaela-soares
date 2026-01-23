@@ -44,8 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const phoneNumber = "5588997891564";
-
+  
   // ===== PRELOADER =====
   const preloader = document.getElementById("preloader");
   if (preloader) {
@@ -54,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => preloader.remove(), 10000);
     });
   }
-
+  
+  const phoneNumber = "5588997891564";
   // ===== FORMULÁRIO WHATSAPP =====
   const form = document.getElementById("whatsappForm");
   if (form) {
