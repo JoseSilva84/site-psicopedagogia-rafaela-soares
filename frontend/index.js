@@ -86,7 +86,7 @@ ${mensagem}
     whatsappBtn.addEventListener("click", () => {
       window.open(
         `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-          "Olá! Gostaria de agendar um atendimento psicopedagógico.",
+          "Olá! Gostaria de agendar um atendimento.",
         )}`,
         "_blank",
       );
@@ -98,7 +98,7 @@ ${mensagem}
     contatoWhat.addEventListener("click", () => {
       window.open(
         `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-          "Olá! Gostaria de agendar um atendimento psicopedagógico.",
+          "Olá! Gostaria de agendar um atendimento.",
         )}`,
         "_blank",
       );
@@ -129,7 +129,7 @@ ${mensagem}
 
   new ImageRotator({
     elementId: "slider",
-    images: ["./img/1.png", "./img/2.png", "./img/3.png", "./img/4.png"],
+    images: ["./img/1.png", "./img/2.png", "./img/3.png", "./img/4.png", "./img/5.jpg", "./img/6.jpg", "./img/7.jpg", "./img/8.jpg", "./img/10.jpg", "./img/11.jpg"],
     interval: 2000,
   });
 
