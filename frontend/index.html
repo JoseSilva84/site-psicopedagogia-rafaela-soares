@@ -167,7 +167,7 @@
             </a>
             <!-- INSTAGRAM -->
             <a href="https://www.instagram.com/rafapedagoga?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                target="_blank" aria-label="Instagram" class="fixed bottom-24 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-lg
+                target="_blank" aria-label="Instagram" class="fixed bottom-20 right-4 w-14 h-14 rounded-full flex items-center justify-center shadow-lg
             bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600
             hover:scale-105 transition-transform duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7 fill-white">
@@ -180,7 +180,7 @@
 
             <!-- BOTÃO WHATSAPP -->
             <!-- Efeito de surgimento de algo: data-aos="fade-in" -->
-            <a id="whatsappBtn" class="fixed bottom-6 right-6 bg-green-500 text-white
+            <a id="whatsappBtn" class="fixed bottom-4 right-4 bg-green-500 text-white
                 w-14 h-14 rounded-full
                 flex items-center justify-center
                 shadow-lg cursor-pointer
@@ -217,7 +217,7 @@
                 <a href="#sobre"
                     class="menu-link hover:underline decoration-[#833675] underline-offset-2 hover:text-[#833675] hover:shadow-lg">Sobre</a>
                 <a href="#galeria"
-                    class="menu-link hover:underline decoration-[#833675] underline-offset-2 hover:text-[#833675] hover:shadow-lg">Galeria</a>
+                    class="menu-link hover:underline decoration-[#833675] underline-offset-2 hover:text-[#833675] hover:shadow-lg">Fotos</a>
                 <a href="#abordagem"
                     class="menu-link hover:underline decoration-[#833675] underline-offset-2 hover:text-[#833675] hover:shadow-lg">Abordagem</a>
                 <a href="#faq"
@@ -235,7 +235,7 @@
             <nav class="flex flex-col px-6 py-4 space-y-4 text-[#833675] text-center font-medium">
                 <a href="#inicio" class="mobile-link">Início</a>
                 <a href="#sobre" class="mobile-link">Sobre</a>
-                <a href="#galeria" class="mobile-link">Galeria</a>
+                <a href="#galeria" class="mobile-link">Fotos</a>
                 <a href="#abordagem" class="mobile-link">Abordagem</a>
                 <a href="#contato" class="mobile-link">Contato</a>
             </nav>
@@ -332,15 +332,15 @@
             <h2 class="font-serif text-3xl text-[#833675] mb-8 text-center" data-aos="fade-up">
                 Galeria de Fotos
             </h2>
-            <div class="flex justify-center items-center" data-aos="fade-up">
-                <button id="prevGaleria" class="text-[#833675] hover:text-[#6f2c5f] transition-colors duration-300 mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="relative flex justify-center" data-aos="fade-up">
+                <img id="galeriaSlider" src="./img/1.png" alt="Galeria de Fotos" class="rounded-2xl h-41 shadow-lg hover:scale-105 transition-all duration-500" loading="lazy" />
+                <button id="prevGaleria" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white hover:bg-opacity-70 rounded-full p-2 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
-                <img id="galeriaSlider" src="./img/1.png" alt="Galeria de Fotos" class="rounded-2xl h-41 shadow-lg hover:scale-105 transition-all duration-500" loading="lazy" />
-                <button id="nextGaleria" class="text-[#833675] hover:text-[#6f2c5f] transition-colors duration-300 ml-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button id="nextGaleria" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white hover:bg-opacity-70 rounded-full p-2 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </button>
