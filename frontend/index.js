@@ -114,23 +114,60 @@ ${mensagem}
       this.images = config.images;
       this.interval = config.interval || 3000;
       this.currentIndex = 0;
+      this.intervalId = null;
       this.start();
     }
 
     start() {
-      setInterval(() => this.nextImage(), this.interval);
+      this.intervalId = setInterval(() => this.nextImage(), this.interval);
+    }
+
+    stop() {
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
     }
 
     nextImage() {
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
       this.element.src = this.images[this.currentIndex];
     }
+
+    prevImage() {
+      this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+      this.element.src = this.images[this.currentIndex];
+    }
+
+    goToImage(index) {
+      this.currentIndex = index % this.images.length;
+      this.element.src = this.images[this.currentIndex];
+    }
   }
 
-  new ImageRotator({
+  const sliderRotator = new ImageRotator({
     elementId: "slider",
     images: ["./img/1.png", "./img/2.png", "./img/3.png", "./img/4.png", "./img/5.jpg", "./img/6.jpg", "./img/7.jpg", "./img/8.jpg", "./img/10.jpg", "./img/11.jpg"],
     interval: 2000,
+  });
+
+  const galeriaRotator = new ImageRotator({
+    elementId: "galeriaSlider",
+    images: ["./img/1.png", "./img/2.png", "./img/3.png", "./img/4.png", "./img/5.jpg", "./img/6.jpg", "./img/7.jpg", "./img/8.jpg", "./img/10.jpg", "./img/11.jpg"],
+    interval: 3000,
+  });
+
+  // Navegação da galeria
+  document.getElementById("prevGaleria").addEventListener("click", () => {
+    galeriaRotator.prevImage();
+    galeriaRotator.stop();
+    setTimeout(() => galeriaRotator.start(), 5000); // Reinicia após 5 segundos de inatividade
+  });
+
+  document.getElementById("nextGaleria").addEventListener("click", () => {
+    galeriaRotator.nextImage();
+    galeriaRotator.stop();
+    setTimeout(() => galeriaRotator.start(), 5000); // Reinicia após 5 segundos de inatividade
   });
 
   // ===== FAQ =====
