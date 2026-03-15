@@ -147,7 +147,7 @@ ${mensagem}
 
   const sliderRotator = new ImageRotator({
     elementId: "slider",
-    images: ["./img/1.png", "./img/2.png", "./img/3.png", "./img/4.png", "./img/5.jpg", "./img/6.jpg", "./img/7.jpg", "./img/8.jpg", "./img/10.jpg", "./img/11.jpg"],
+    images: ["./img/1.png", "./img/2.png", "./img/3.png", "./img/4.png"],
     interval: 2000,
   });
 
