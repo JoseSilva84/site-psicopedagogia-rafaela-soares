@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <title>Psicopedagoga Clínica em Jaguaribe - Ce | Rafaela Soares</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -139,15 +139,55 @@
     <style>
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            max-width: 100%;
+            background-color: #f6e9f3;
         }
 
         section[id] {
-            scroll-margin-top: 5.5rem;
+            scroll-margin-top: 6rem;
         }
 
         body {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            max-width: 100%;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        #site {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: clip;
+            box-sizing: border-box;
+        }
+
+        img,
+        video,
+        iframe,
+        svg {
+            max-width: 100%;
+        }
+
+        @media (max-width: 767.98px) {
+            .hero-blob {
+                display: none;
+            }
+        }
+
+        /* Botões flutuantes: acima de tudo e respeitando barra de gestos / notch */
+        .fab-fixed {
+            right: max(0.75rem, env(safe-area-inset-right, 0px));
+        }
+
+        #whatsappBtn.fab-fixed {
+            bottom: max(1rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
+        }
+
+        a.fab-instagram {
+            bottom: max(5.75rem, calc(env(safe-area-inset-bottom, 0px) + 4.75rem));
         }
 
         ::selection {
@@ -249,6 +289,77 @@
 
 <body class="font-sans text-[#5c4a58] bg-[#faf8fb]">
 
+    <!-- Header fora de #site: sticky/fixed funciona (overflow-x em #site quebrava sticky antes) -->
+    <header
+        class="fixed top-0 left-0 right-0 z-50 w-full max-w-full min-w-0 overflow-x-clip border-b border-[#833675]/8 bg-terciary/95 backdrop-blur-md shadow-soft">
+        <nav class="max-w-6xl mx-auto w-full min-w-0 px-4 sm:px-6 py-3 min-h-[4.5rem]" aria-label="Principal">
+            <!-- auto | 1fr | auto: faixa central flexível entre Contato e menu (logo longe dos links, como na 1ª referência) -->
+            <div class="hidden md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-x-6 lg:gap-x-10 w-full min-w-0">
+                <div class="flex justify-start items-center shrink-0">
+                    <a id="contatoWhat"
+                        class="inline-flex shrink-0 items-center gap-2 bg-[#833675] text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-soft hover:bg-[#6f2c5f] hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
+                        <svg class="w-6 h-6 text-white shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z"
+                                clip-rule="evenodd" />
+                            <path fill="currentColor"
+                                d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013 .4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z" />
+                        </svg>
+                        Contato
+                    </a>
+                </div>
+                <div class="flex justify-center items-center min-w-0 px-2">
+                    <a href="#inicio" class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#833675]/40 rounded-xl cursor-pointer shrink-0">
+                        <img src="./img/logo.png" alt="Logo de Rafaela Soares"
+                            class="h-[4.5rem] w-auto max-w-[220px] object-contain object-center drop-shadow-sm hover:opacity-95 transition-opacity">
+                    </a>
+                </div>
+                <div class="flex justify-end items-center shrink-0 min-w-0">
+                    <div class="nav-desktop-inner flex justify-end" role="navigation" aria-label="Menu principal desktop">
+                        <div class="inline-flex flex-nowrap items-center gap-x-0 text-[#833675] font-medium text-sm whitespace-nowrap">
+                            <a href="#inicio" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Início</a>
+                            <a href="#sobre" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Sobre</a>
+                            <a href="#galeria" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Fotos</a>
+                            <a href="#abordagem" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Abordagem</a>
+                            <a href="#blog" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Blog</a>
+                            <a href="#faq" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">FAQ</a>
+                            <a href="#contato" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Contato</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex md:hidden flex-row items-center justify-between w-full min-w-0 gap-3">
+                <a href="#inicio" class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#833675]/40 rounded-xl cursor-pointer min-w-0 max-w-[min(240px,calc(100vw-4rem))]">
+                    <img src="./img/logo.png" alt="Logo de Rafaela Soares"
+                        class="h-12 w-auto max-w-full object-contain object-left drop-shadow-sm">
+                </a>
+                <button id="menuBtn" type="button"
+                    class="text-[#833675] p-2 rounded-lg hover:bg-[#833675]/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#833675]/35 cursor-pointer shrink-0"
+                    aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobileMenu"
+            class="md:hidden absolute top-full left-0 right-0 w-full max-w-full border-t border-[#833675]/10 bg-terciary/95 backdrop-blur-md shadow-soft overflow-hidden max-h-0 transition-all duration-300 ease-out">
+            <nav class="flex flex-col px-4 py-5 space-y-1 text-[#833675] text-center font-medium max-w-full" aria-label="Menu principal">
+                <a href="#inicio" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Início</a>
+                <a href="#sobre" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Sobre</a>
+                <a href="#galeria" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Fotos</a>
+                <a href="#abordagem" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Abordagem</a>
+                <a href="#blog" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Blog</a>
+                <a href="#faq" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">FAQ</a>
+                <a href="#contato" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="site" class="pt-[5.75rem] w-full min-w-0 overflow-x-clip">
+
     <!-- PRELOADER -->
     <div id="preloader"
         class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#f4eef3] transition-opacity duration-700">
@@ -261,106 +372,15 @@
     </div>
     <!-- FIM PRELOADER -->
 
-    <!-- HEADER -->
-    <header
-        class="sticky top-0 z-50 border-b border-[#833675]/8 bg-terciary/85 backdrop-blur-md shadow-soft">
-        <nav class="max-w-6xl mx-auto flex flex-row items-center justify-between px-5 sm:px-6 py-3 gap-3 min-h-[4.5rem]">
-            <div class="flex items-center gap-3 sm:gap-4 shrink-0 min-w-0">
-                <a id="contatoWhat"
-                    class="hidden md:inline-flex shrink-0 items-center gap-2 bg-[#833675] text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-soft hover:bg-[#6f2c5f] hover:shadow-soft-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
-                    <svg class="w-6 h-6 text-gray-800 text-white mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path fill="currentColor" fill-rule="evenodd"
-                            d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z"
-                            clip-rule="evenodd" />
-                        <path fill="currentColor"
-                            d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013 .4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z" />
-                    </svg>
-                    Contato
-                </a>
-                <a href="#inicio" class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#833675]/40 rounded-xl cursor-pointer shrink-0">
-                    <img src="./img/logo.png" alt="Logo de Rafaela Soares"
-                        class="h-14 sm:h-16 md:h-[4.5rem] w-auto max-w-[min(100%,240px)] object-contain object-center drop-shadow-sm hover:opacity-95 transition-opacity">
-                </a>
-            </div>
-
-            <div class="flex items-center justify-end gap-2 shrink-0 min-w-0 md:flex-1 md:min-w-0">
-                <div class="hidden md:flex w-full min-w-0 justify-end nav-desktop-inner pl-2" role="navigation" aria-label="Menu principal desktop">
-                    <div class="flex flex-row flex-nowrap items-center justify-end gap-x-0.5 lg:gap-x-1 text-[#833675] font-medium whitespace-nowrap text-xs lg:text-sm">
-                        <a href="#inicio"
-                            class="menu-link px-2 py-1.5 lg:px-2.5 lg:py-2 rounded-full hover:bg-[#833675]/10 cursor-pointer shrink-0">Início</a>
-                        <a href="#sobre"
-                            class="menu-link px-2 py-1.5 lg:px-2.5 lg:py-2 rounded-full hover:bg-[#833675]/10 cursor-pointer shrink-0">Sobre</a>
-                        <a href="#galeria"
-                            class="menu-link px-2 py-1.5 lg:px-2.5 lg:py-2 rounded-full hover:bg-[#833675]/10 cursor-pointer shrink-0">Fotos</a>
-                        <a href="#abordagem"
-                            class="menu-link px-2 py-1.5 lg:px-2.5 lg:py-2 rounded-full hover:bg-[#833675]/10 cursor-pointer shrink-0">Abordagem</a>
-                        <a href="#blog"
-                            class="menu-link px-2 py-1.5 lg:px-2.5 lg:py-2 rounded-full hover:bg-[#833675]/10 cursor-pointer shrink-0">Blog</a>
-                        <a href="#faq"
-                            class="menu-link px-2 py-1.5 lg:px-2.5 lg:py-2 rounded-full hover:bg-[#833675]/10 cursor-pointer shrink-0">FAQ</a>
-                        <a href="#contato"
-                            class="menu-link px-2 py-1.5 lg:px-2.5 lg:py-2 rounded-full hover:bg-[#833675]/10 cursor-pointer shrink-0">Contato</a>
-                    </div>
-                </div>
-                <button id="menuBtn" type="button"
-                    class="md:hidden text-[#833675] p-2 rounded-lg hover:bg-[#833675]/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#833675]/35 cursor-pointer shrink-0"
-                    aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-
-        <!-- MENU MOBILE -->
-        <div id="mobileMenu"
-            class="md:hidden absolute top-full left-0 w-full border-t border-[#833675]/10 bg-terciary/95 backdrop-blur-md shadow-soft overflow-hidden max-h-0 transition-all duration-300 ease-out">
-            <nav class="flex flex-col px-6 py-5 space-y-1 text-[#833675] text-center font-medium" aria-label="Menu principal">
-                <a href="#inicio" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Início</a>
-                <a href="#sobre" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Sobre</a>
-                <a href="#galeria" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Fotos</a>
-                <a href="#abordagem" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Abordagem</a>
-                <a href="#blog" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Blog</a>
-                <a href="#faq" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">FAQ</a>
-                <a href="#contato" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Contato</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Ações flutuantes (fora do nav para não afetar o layout) -->
-    <a href="https://www.instagram.com/rafapedagoga?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-        target="_blank" rel="noopener noreferrer"
-        aria-label="Instagram"
-        class="fixed bottom-24 right-5 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-soft-lg bg-gradient-to-tr from-amber-300 via-pink-500 to-purple-600 hover:scale-105 hover:shadow-soft-lg transition-all duration-300 ring-2 ring-white/50 cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7 fill-white" aria-hidden="true">
-            <path
-                d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z" />
-            <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 1.5A3.5 3.5 0 1 1 12 16a3.5 3.5 0 0 1 0-7.5z" />
-            <circle cx="17.5" cy="6.5" r="1" />
-        </svg>
-    </a>
-    <a id="whatsappBtn" href="https://wa.me/5588997891564" aria-label="Abrir WhatsApp"
-        class="fixed bottom-5 right-5 z-40 w-14 h-14 sm:w-[3.75rem] sm:h-[3.75rem] rounded-full flex items-center justify-center bg-[#25D366] text-white shadow-soft-lg hover:bg-[#20bd5a] hover:scale-105 hover:shadow-soft-lg transition-all duration-300 ring-4 ring-white/80 cursor-pointer">
-        <svg class="w-8 h-8 sm:w-9 sm:h-9" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd"
-                d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z"
-                clip-rule="evenodd" />
-            <path
-                d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013 .4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z" />
-        </svg>
-    </a>
-
     <!-- HERO -->
-    <section id="inicio" class="relative overflow-hidden bg-gradient-to-b from-secondary via-[#faf8fb] to-white py-10 sm:py-14 px-6">
+    <section id="inicio" class="relative overflow-hidden bg-gradient-to-b from-secondary via-[#faf8fb] to-white py-10 sm:py-14 px-4 sm:px-6 w-full max-w-full min-w-0">
         <div class="hero-blob w-[min(100vw,28rem)] h-[min(100vw,28rem)] -top-24 -right-24 bg-[#e8d4e4]" aria-hidden="true"></div>
         <div class="hero-blob w-[min(90vw,22rem)] h-[min(90vw,22rem)] bottom-0 -left-20 bg-[#dcc9e8]" aria-hidden="true"></div>
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(131,54,117,0.09),transparent)] pointer-events-none" aria-hidden="true"></div>
 
-        <div class="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-10 items-center">
+        <div class="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-10 items-center w-full min-w-0 px-0">
 
-            <div class="text-center md:text-left md:pt-4 order-2 md:order-1">
+            <div class="text-center md:text-left md:pt-4 order-2 md:order-1 min-w-0 max-w-full">
                 <p class="section-kicker mb-4" data-aos="fade-up">Bem-vindo</p>
                 <div class="w-12 h-px bg-gradient-to-r from-[#833675] to-transparent mb-6 mx-auto md:mx-0" data-aos="fade-up" aria-hidden="true"></div>
 
@@ -395,8 +415,8 @@
                 <div class="w-12 h-px bg-gradient-to-r from-transparent via-[#833675]/40 to-transparent mt-8 mx-auto md:mx-0 max-w-[200px]" data-aos="fade-up" aria-hidden="true"></div>
             </div>
 
-            <div class="flex justify-center md:justify-end order-1 md:order-2 w-full" data-aos="fade-up">
-                <picture class="flex justify-center items-end w-full max-w-lg md:max-w-none md:w-auto">
+            <div class="flex justify-center md:justify-end order-1 md:order-2 w-full min-w-0 max-w-full" data-aos="fade-up">
+                <picture class="flex justify-center items-end w-full max-w-full min-w-0 md:max-w-lg lg:max-w-none md:w-auto">
                     <img src="./img/rafaela.png" alt="Foto de Rafaela Soares" loading="lazy"
                         class="hero-photo transition-transform duration-500 hover:scale-[1.01]" />
                 </picture>
@@ -406,9 +426,9 @@
     </section>
 
     <!-- SOBRE -->
-    <section id="sobre" class="pt-8 pb-12 sm:pt-10 sm:pb-16 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-10 items-center">
-            <div class="text-center md:text-left rounded-3xl bg-white/80 border border-[#833675]/10 p-8 sm:p-10 shadow-soft backdrop-blur-sm">
+    <section id="sobre" class="pt-8 pb-12 sm:pt-10 sm:pb-16 px-4 sm:px-6 w-full max-w-full min-w-0 overflow-x-clip">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-10 items-center min-w-0 w-full">
+            <div class="text-center md:text-left rounded-3xl bg-white/80 border border-[#833675]/10 p-6 sm:p-10 shadow-soft backdrop-blur-sm min-w-0 max-w-full">
                 <p class="section-kicker mb-3" data-aos="fade-up">Sobre mim</p>
                 <h2 class="font-serif text-3xl sm:text-[2rem] text-[#833675] mb-6 leading-tight" data-aos="fade-up">Prazer, sou Rafaela Soares</h2>
                 <p class="mb-8 text-[#5c4a58] leading-relaxed text-[0.95rem] sm:text-base" data-aos="fade-up">
@@ -429,18 +449,18 @@
                 </a>
             </div>
 
-            <div class="relative flex justify-center md:justify-end" data-aos="fade-up">
-                <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-[#833675]/10 to-transparent -z-10" aria-hidden="true"></div>
+            <div class="relative flex justify-center md:justify-end min-w-0 max-w-full" data-aos="fade-up">
+                <div class="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-[#833675]/10 to-transparent -z-10 max-w-[calc(100%+1rem)]" aria-hidden="true"></div>
                 <img id="slider" src="./img/1.png"
-                    class="rounded-3xl w-full max-w-md h-auto min-h-[240px] object-cover img-frame hover:scale-[1.02] transition-transform duration-500" alt="Atendimento psicopedagógico em Jaguaribe Ceará"
+                    class="rounded-3xl w-full max-w-full sm:max-w-md h-auto min-h-[240px] object-cover img-frame hover:scale-[1.02] transition-transform duration-500" alt="Atendimento psicopedagógico em Jaguaribe Ceará"
                     loading="lazy" />
             </div>
         </div>
     </section>
 
     <!-- GALERIA -->
-    <section id="galeria" class="pt-6 pb-12 sm:pt-8 sm:pb-16 px-6 bg-gradient-to-b from-secondary to-[#f0e8ee]">
-        <div class="max-w-6xl mx-auto">
+    <section id="galeria" class="pt-6 pb-12 sm:pt-8 sm:pb-16 px-4 sm:px-6 bg-gradient-to-b from-secondary to-[#f0e8ee] w-full max-w-full min-w-0 overflow-x-clip">
+        <div class="max-w-6xl mx-auto w-full min-w-0">
             <div class="text-center mb-8 sm:mb-10" data-aos="fade-up">
                 <p class="section-kicker mb-3">Momentos</p>
                 <h2 class="font-serif text-3xl sm:text-[2rem] text-[#833675]">
@@ -468,8 +488,8 @@
     </section>
 
     <!-- ABORDAGEM -->
-    <section id="abordagem" class="py-12 sm:py-20 px-6">
-        <div class="max-w-6xl mx-auto">
+    <section id="abordagem" class="py-12 sm:py-20 px-4 sm:px-6 w-full max-w-full min-w-0 overflow-x-clip">
+        <div class="max-w-6xl mx-auto w-full min-w-0">
             <div class="mb-12 md:mb-14 max-w-2xl" data-aos="fade-up">
                 <p class="section-kicker mb-3">Como trabalho</p>
                 <h2 class="font-serif text-3xl sm:text-[2rem] text-[#833675] leading-tight">
@@ -479,7 +499,7 @@
 
             <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
                 <div class="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#833675] to-[#5c2d56] p-8 text-white shadow-soft-lg ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft-lg" data-aos="fade-up">
-                    <span class="text-4xl font-serif text-white/25 font-medium absolute -right-1 top-4" aria-hidden="true">01</span>
+                    <span class="text-4xl font-serif text-white/25 font-medium absolute -right-1 top-4 px-10" aria-hidden="true">1</span>
                     <h3 class="font-serif text-xl mb-3 relative z-10">
                         Escuta individualizada
                     </h3>
@@ -488,7 +508,7 @@
                 </div>
 
                 <div class="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#833675] to-[#5c2d56] p-8 text-white shadow-soft-lg ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft-lg" data-aos="fade-up" data-aos-delay="50">
-                    <span class="text-4xl font-serif text-white/25 font-medium absolute -right-1 top-4" aria-hidden="true">02</span>
+                    <span class="text-4xl font-serif text-white/25 font-medium absolute -right-1 top-4 px-10" aria-hidden="true">2</span>
                     <h3 class="font-serif text-xl mb-3 relative z-10">
                         Intervenção personalizada
                     </h3>
@@ -497,7 +517,7 @@
                 </div>
 
                 <div class="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#833675] to-[#5c2d56] p-8 text-white shadow-soft-lg ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft-lg md:col-span-1" data-aos="fade-up" data-aos-delay="100">
-                    <span class="text-4xl font-serif text-white/25 font-medium absolute -right-1 top-4" aria-hidden="true">03</span>
+                    <span class="text-4xl font-serif text-white/25 font-medium absolute -right-1 top-4 px-10" aria-hidden="true">3</span>
                     <h3 class="font-serif text-xl mb-3 relative z-10">
                         Orientação familiar
                     </h3>
@@ -509,9 +529,9 @@
     </section>
 
     <!-- BLOG -->
-    <section id="blog" class="relative py-12 sm:py-20 px-6 overflow-hidden bg-gradient-to-b from-white via-secondary/50 to-secondary">
+    <section id="blog" class="relative py-12 sm:py-20 px-4 sm:px-6 overflow-x-clip overflow-y-visible w-full max-w-full min-w-0 bg-gradient-to-b from-white via-secondary/50 to-secondary">
         <div class="absolute top-24 right-0 w-72 h-72 rounded-full bg-[#833675]/5 blur-3xl pointer-events-none" aria-hidden="true"></div>
-        <div class="max-w-6xl mx-auto relative">
+        <div class="max-w-6xl mx-auto relative w-full min-w-0">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4 sm:mb-5" data-aos="fade-up">
                 <div class="max-w-xl">
                     <p class="section-kicker mb-2">Conteúdos</p>
@@ -544,8 +564,8 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="bg-secondary py-12 sm:py-20 px-6">
-        <div class="max-w-3xl mx-auto">
+    <section id="faq" class="bg-secondary py-12 sm:py-20 px-4 sm:px-6 w-full max-w-full min-w-0 overflow-x-clip">
+        <div class="max-w-3xl mx-auto w-full min-w-0 px-0">
             <div class="mb-10" data-aos="fade-up">
                 <p class="section-kicker mb-3">Dúvidas</p>
                 <h2 class="font-serif text-3xl sm:text-[2rem] text-[#833675] leading-tight">
@@ -580,8 +600,8 @@
     </section>
 
     <!-- CONTATO -->
-    <section id="contato" class="py-12 sm:py-20 px-6 bg-gradient-to-b from-secondary to-[#ebe3e8]">
-        <div class="max-w-6xl mx-auto">
+    <section id="contato" class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-secondary to-[#ebe3e8] w-full max-w-full min-w-0 overflow-x-clip">
+        <div class="max-w-6xl mx-auto w-full min-w-0">
             <div class="mb-12 text-center md:text-left" data-aos="fade-up">
                 <p class="section-kicker mb-3">Fale comigo</p>
                 <h2 class="font-serif text-3xl sm:text-[2rem] text-[#833675] mb-4 leading-tight">
@@ -592,37 +612,37 @@
                 </p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
-                <div id="localizacao" class="space-y-5 text-[#833675]" data-aos="fade-up">
-                    <div class="rounded-3xl p-6 md:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm">
-                        <h3 class="font-serif text-lg text-[#833675] mb-3 flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full bg-[#833675]" aria-hidden="true"></span>
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-start min-w-0 w-full">
+                <div id="localizacao" class="space-y-5 text-[#833675] min-w-0 max-w-full" data-aos="fade-up">
+                    <div class="rounded-3xl p-5 sm:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm min-w-0 max-w-full">
+                        <h3 class="font-serif text-lg text-[#833675] mb-3 flex items-center gap-2 break-words">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#833675] shrink-0" aria-hidden="true"></span>
                             Local de funcionamento
                         </h3>
-                        <p class="leading-relaxed font-medium text-[#5c4a58]">
+                        <p class="leading-relaxed font-medium text-[#5c4a58] break-words">
                             Espaço Psicopedagogico: Conexão Ativa
                         </p>
                     </div>
 
-                    <div class="rounded-3xl p-6 md:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm space-y-3">
-                        <h3 class="font-serif text-lg text-[#833675] mb-1 flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full bg-[#833675]" aria-hidden="true"></span>
+                    <div class="rounded-3xl p-5 sm:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm space-y-3 min-w-0 max-w-full">
+                        <h3 class="font-serif text-lg text-[#833675] mb-1 flex items-center gap-2 break-words">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#833675] shrink-0" aria-hidden="true"></span>
                             Horário e sessões
                         </h3>
-                        <p class="leading-relaxed text-[#5c4a58] text-sm sm:text-base">
+                        <p class="leading-relaxed text-[#5c4a58] text-sm sm:text-base break-words">
                             Horário de atendimento: Sábado, das 7h às 18h
                         </p>
-                        <p class="leading-relaxed text-[#5c4a58] text-sm sm:text-base">
+                        <p class="leading-relaxed text-[#5c4a58] text-sm sm:text-base break-words">
                             Duração da sessão: 1h30min
                         </p>
                     </div>
 
-                    <div class="rounded-3xl p-6 md:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm">
-                        <h3 class="font-serif text-lg text-[#833675] mb-3 flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full bg-[#833675]" aria-hidden="true"></span>
+                    <div class="rounded-3xl p-5 sm:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm min-w-0 max-w-full">
+                        <h3 class="font-serif text-lg text-[#833675] mb-3 flex items-center gap-2 break-words">
+                            <span class="h-1.5 w-1.5 rounded-full bg-[#833675] shrink-0" aria-hidden="true"></span>
                             Endereço
                         </h3>
-                        <p class="leading-relaxed mb-5 text-[#5c4a58] text-sm sm:text-base">
+                        <p class="leading-relaxed mb-5 text-[#5c4a58] text-sm sm:text-base break-words hyphens-auto">
                             Rua Lauro Alves de Miranda, Bairro Santa Paulina n. 264, Jaguaribe, CE
                         </p>
                         <a href="https://www.google.com/maps/search/?api=1&query=Rua+Lauro+Alves+de+Miranda%2C+264%2C+Santa+Paulina%2C+Jaguaribe%2C+CE"
@@ -630,10 +650,10 @@
                             class="inline-flex items-center gap-2 text-sm font-medium text-white bg-[#833675] px-4 py-2.5 rounded-full hover:bg-[#6f2c5f] shadow-soft transition-all duration-300 cursor-pointer">
                             Abrir no Google Maps
                         </a>
-                        <div class="mt-6 rounded-2xl overflow-hidden shadow-soft-lg border border-[#833675]/10 aspect-video min-h-[240px] ring-1 ring-black/5">
+                        <div class="mt-6 rounded-2xl overflow-hidden shadow-soft-lg border border-[#833675]/10 aspect-video min-h-[200px] max-w-full ring-1 ring-black/5">
                             <iframe
                                 title="Localização no Google Maps — Rua Lauro Alves de Miranda, Jaguaribe, CE"
-                                class="w-full h-full min-h-[240px] border-0"
+                                class="w-full h-full min-h-[200px] border-0 max-w-full"
                                 src="https://maps.google.com/maps?q=Rua+Lauro+Alves+de+Miranda%2C+264%2C+Santa+Paulina%2C+Jaguaribe%2C+CE%2C+Brasil&amp;hl=pt&amp;z=16&amp;output=embed"
                                 allowfullscreen=""
                                 loading="lazy"
@@ -642,21 +662,21 @@
                     </div>
                 </div>
 
-                <div class="rounded-3xl p-6 sm:p-8 bg-white/90 border border-[#833675]/10 shadow-soft-lg backdrop-blur-sm" data-aos="fade-up">
-                    <h3 class="font-serif text-xl text-[#833675] mb-2">Mensagem pelo WhatsApp</h3>
-                    <p class="mb-6 text-[#5c4a58] text-sm leading-relaxed">
+                <div class="rounded-3xl p-5 sm:p-8 bg-white/90 border border-[#833675]/10 shadow-soft-lg backdrop-blur-sm min-w-0 max-w-full" data-aos="fade-up">
+                    <h3 class="font-serif text-xl text-[#833675] mb-2 break-words">Mensagem pelo WhatsApp</h3>
+                    <p class="mb-6 text-[#5c4a58] text-sm leading-relaxed break-words">
                         Preencha os campos abaixo. Você será direcionado ao WhatsApp com a mensagem pronta.
                     </p>
-                    <form id="whatsappForm" class="grid gap-4">
+                    <form id="whatsappForm" class="grid gap-4 w-full min-w-0 max-w-full">
                         <label class="sr-only" for="nome">Seu nome</label>
-                        <input class="border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow" type="text" id="nome" placeholder="Seu nome" required>
+                        <input class="w-full min-w-0 max-w-full box-border border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow" type="text" id="nome" placeholder="Seu nome" required>
                         <label class="sr-only" for="email">Seu e-mail</label>
-                        <input class="border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow" type="email" id="email" placeholder="Seu e-mail">
+                        <input class="w-full min-w-0 max-w-full box-border border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow" type="email" id="email" placeholder="Seu e-mail">
                         <label class="sr-only" for="whatsapp">Seu WhatsApp</label>
-                        <input class="border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow" type="tel" id="whatsapp" inputmode="numeric" placeholder="Seu número (WhatsApp)"
+                        <input class="w-full min-w-0 max-w-full box-border border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow" type="tel" id="whatsapp" inputmode="numeric" placeholder="Seu número (WhatsApp)"
                             required>
                         <label class="sr-only" for="mensagem">Sua mensagem</label>
-                        <textarea class="border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow min-h-[120px] resize-y" id="mensagem" placeholder="Sua mensagem"></textarea>
+                        <textarea class="w-full min-w-0 max-w-full box-border border border-[#833675]/15 rounded-2xl px-4 py-3.5 text-[#5c4a58] placeholder:text-[#833675]/40 focus:outline-none focus:ring-2 focus:ring-[#833675]/25 focus:border-[#833675]/30 transition-shadow min-h-[120px] resize-y" id="mensagem" placeholder="Sua mensagem"></textarea>
                         <button type="submit"
                             class="bg-[#833675] text-white py-4 rounded-full font-medium shadow-soft-lg hover:bg-[#6f2c5f] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
                             Enviar pelo WhatsApp
@@ -669,16 +689,40 @@
 
     <!-- FOOTER -->
     <footer
-        class="w-full border-t border-[#833675]/10 bg-terciary/90 backdrop-blur-sm py-10 px-6"
+        class="w-full max-w-full min-w-0 border-t border-[#833675]/10 bg-terciary backdrop-blur-sm pt-8 pb-24 md:pb-10 px-4 sm:px-6 overflow-x-clip"
         data-aos="fade-up">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left text-[#833675] text-sm">
-            <img src="./img/logoFooter.png" alt="Rafaela Soares — logo" class="h-14 w-auto object-contain opacity-90">
-            <div class="max-w-xl leading-relaxed text-[#5c4a58]">
-                <p class="text-[#833675] font-medium font-serif text-base mb-1">Rafaela Soares</p>
-                <p>&copy; 2026 — Todos os direitos reservados. Desenvolvido por <a href="https://wa.me/5575992456130" target="_blank" rel="noopener noreferrer" class="text-[#833675] font-medium underline-offset-2 hover:underline transition-colors">José Silva</a>.</p>
-            </div>
+        <div class="max-w-6xl mx-auto flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-4 text-[#833675] min-w-0 w-full pr-14 sm:pr-0">
+            <img src="./img/logoFooter.png" alt="Rafaela Soares — logo" class="h-9 sm:h-14 w-auto shrink-0 max-h-12 sm:max-h-none object-contain opacity-90">
+            <p class="text-left text-[0.7rem] sm:text-sm leading-tight text-[#5c4a58] min-w-0">
+                &copy; 2026 — Todos os direitos reservados. Desenvolvido por <a href="https://wa.me/5575992456130" target="_blank" rel="noopener noreferrer" class="text-[#833675] font-medium underline-offset-2 hover:underline transition-colors">José Silva</a>.
+            </p>
         </div>
     </footer>
+
+    </div>
+    <!-- /#site — FABs fora do wrapper para não serem afetados por overflow-x -->
+
+    <a href="https://www.instagram.com/rafapedagoga?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        target="_blank" rel="noopener noreferrer"
+        aria-label="Instagram"
+        class="fab-fixed fab-instagram fixed z-[100] w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-gradient-to-tr from-amber-300 via-pink-500 to-purple-600 hover:scale-105 transition-transform duration-300 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.2)] border-2 border-white/90">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7 fill-white pointer-events-none" aria-hidden="true">
+            <path
+                d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z" />
+            <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 1.5A3.5 3.5 0 1 1 12 16a3.5 3.5 0 0 1 0-7.5z" />
+            <circle cx="17.5" cy="6.5" r="1" />
+        </svg>
+    </a>
+    <a id="whatsappBtn" href="https://wa.me/5588997891564" aria-label="Abrir WhatsApp"
+        class="fab-fixed fixed z-[100] w-14 h-14 sm:w-[3.75rem] sm:h-[3.75rem] rounded-full flex items-center justify-center bg-[#25D366] text-white hover:bg-[#20bd5a] hover:scale-105 transition-all duration-300 cursor-pointer shadow-[0_4px_20px_rgba(0,0,0,0.2)] border-2 border-white/90">
+        <svg class="w-8 h-8 sm:w-9 sm:h-9 pointer-events-none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+                d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z"
+                clip-rule="evenodd" />
+            <path
+                d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013 .4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z" />
+        </svg>
+    </a>
 
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -686,7 +730,8 @@
         AOS.init({
             duration: 400,
             offset: 50,
-            once: true
+            once: true,
+            disableMutationObserver: true
         });
     </script>
 
