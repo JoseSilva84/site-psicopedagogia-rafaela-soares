@@ -1,4 +1,4 @@
-import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, db, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, query, orderBy, storage, ref, uploadBytes, getDownloadURL } from './firebase-config.js';
+import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, db, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, query, orderBy } from './firebase-config.js';
 
 // Elementos HTML
 const loginContainer = document.getElementById('login-container');
@@ -30,7 +30,7 @@ const quill = new Quill('#editor-container', {
     }
 });
 
-// Handler personalizado para imagens (Faz upload para o Firebase Storage invés de Base64)
+// Handler personalizado para imagens (Comprime a imagem para evitar limites e furos do Storage)
 function imageHandler() {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
@@ -42,43 +42,52 @@ function imageHandler() {
         if (!file) return;
 
         // Feedback visual
-        publishBtn.textContent = 'Enviando imagem...';
+        publishBtn.textContent = 'Tratando imagem...';
         publishBtn.disabled = true;
 
-        try {
-            // Cria uma referência única no Storage
-            const uniqueName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-]/g, '');
-            const storageRef = ref(storage, 'blog_images/' + uniqueName);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                // Configurações de compressão (até 800px de largura)
+                const MAX_WIDTH = 800;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > MAX_WIDTH) {
+                    height = Math.round((height * MAX_WIDTH) / width);
+                    width = MAX_WIDTH;
+                }
+
+                // Desenha no Canvas para compressão pesada
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Converte para JPEG leve com 65% de qualidade (gera um Base64 viável e pequeno)
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.65);
+
+                // Insere a imagem super leve de volta no editor
+                const range = quill.getSelection(true);
+                quill.insertEmbed(range.index, 'image', compressedBase64);
+                quill.setSelection(range.index + 1);
+
+                publishBtn.textContent = 'Publicar Artigo';
+                publishBtn.disabled = false;
+            };
             
-            // Faz o upload direto e aguarda (resolve problemas de travamento do 'resumable')
-            const snapshot = await uploadBytes(storageRef, file);
+            img.onerror = () => {
+                alert("Erro ao ler a imagem inserida.");
+                publishBtn.textContent = 'Publicar Artigo';
+                publishBtn.disabled = false;
+            };
             
-            // Upload concluído com sucesso, pega a URL
-            const downloadURL = await getDownloadURL(snapshot.ref);
-            
-            // Insere a URL da imagem no editor
-            const range = quill.getSelection(true);
-            quill.insertEmbed(range.index, 'image', downloadURL);
-            quill.setSelection(range.index + 1);
-            
-            publishBtn.textContent = 'Publicar Artigo';
-            publishBtn.disabled = false;
-            
-        } catch (error) {
-            console.error("Erro no upload da imagem:", error);
-            
-            // Verifica se é erro de regra de segurança (Storage não criado ou restrito)
-            if (error.code === 'storage/unauthorized') {
-                alert("Erro de Permissão: O Firebase Storage não foi ativado no seu painel ou as regras de segurança estão bloqueando.");
-            } else if (error.code === 'storage/invalid-default-bucket' || error.code === 'storage/bucket-not-found') {
-                alert("Erro de Configuração: O Bucket do Storage não existe ou não foi iniciado.");
-            } else {
-                alert("Erro ao enviar a imagem. Veja o console (F12) para detalhes.");
-            }
-            
-            publishBtn.textContent = 'Publicar Artigo';
-            publishBtn.disabled = false;
-        }
+            img.src = e.target.result;
+        };
+        
+        reader.readAsDataURL(file);
     };
 }
 
