@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administração do Blog | Rafaela Soares</title>
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#8b5e83',
+                        secondary: '#f4eef3',
+                        terciary: '#f6e9f3',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Quill Editor CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body class="font-sans text-[#5c4a58] bg-[#faf8fb] min-h-screen p-4 sm:p-8">
+
+    <div class="max-w-4xl mx-auto py-8">
+        <header class="mb-10 text-center">
+            <h1 class="font-serif text-3xl sm:text-4xl text-[#833675]">Gestão de Conteúdo</h1>
+            <p class="text-sm text-[#833675]/80 mt-2">Área restrita - Rafaela Soares Psicopedagogia</p>
+        </header>
+
+        <!-- CONTAINER LOGIN -->
+        <div id="login-container" class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-lg border border-[#833675]/10">
+            <h2 class="font-serif text-2xl text-[#833675] mb-6 text-center">Login</h2>
+            <form id="login-form" class="flex flex-col gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">E-mail</label>
+                    <input type="email" id="email" class="w-full border border-[#833675]/20 rounded-xl px-4 py-3 focus:outline-none focus:border-[#833675] bg-secondary" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Senha</label>
+                    <input type="password" id="password" class="w-full border border-[#833675]/20 rounded-xl px-4 py-3 focus:outline-none focus:border-[#833675] bg-secondary" required>
+                </div>
+                <button type="submit" class="bg-[#833675] text-white py-3 rounded-full mt-4 font-medium hover:bg-[#6f2c5f] transition-colors">Entrar</button>
+            </form>
+            <p id="login-error" class="text-red-500 text-sm mt-4 text-center hidden">Erro ao fazer login. Verifique as credenciais.</p>
+        </div>
+
+        <!-- CONTAINER ADMIN (oculto por padrão) -->
+        <div id="admin-container" class="hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="font-serif text-2xl text-[#833675]">Novo Artigo</h2>
+                <button id="logout-btn" class="text-sm font-medium border border-[#833675] text-[#833675] px-4 py-2 rounded-full hover:bg-secondary transition-colors">Sair</button>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#833675]/10 mb-10">
+                <input type="text" id="post-title" placeholder="Título do Artigo" class="w-full font-serif text-xl sm:text-2xl text-[#833675] border-b-2 border-[#833675]/20 focus:outline-none focus:border-[#833675] pb-2 mb-4 bg-transparent outline-none">
+                
+                <textarea id="post-excerpt" placeholder="Resumo do artigo (aparecerá na página principal)" class="w-full text-sm text-[#5c4a58] border border-[#833675]/20 rounded-xl p-3 mb-6 focus:outline-none focus:border-[#833675] resize-none h-20 outline-none"></textarea>
+                
+                <!-- Quill Editor -->
+                <div class="rounded-xl border border-[#833675]/20 overflow-hidden mb-6 bg-white">
+                    <div id="editor-container" class="h-64 rounded-b-xl border-none"></div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <p id="publish-status" class="text-sm text-green-600 hidden font-medium">Publicado com sucesso!</p>
+                    <button id="publish-btn" class="bg-[#833675] text-white px-8 py-3 rounded-full font-medium shadow-lg hover:bg-[#6f2c5f] transition-all w-full sm:w-auto">Publicar Artigo</button>
+                </div>
+            </div>
+
+            <h2 class="font-serif text-xl text-[#833675] mb-4">Seus Artigos Publicados</h2>
+            <div id="posts-list" class="grid sm:grid-cols-2 gap-4">
+                <!-- Posts listados aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Quill Editor JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <!-- Script principal de lógica de Admin -->
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

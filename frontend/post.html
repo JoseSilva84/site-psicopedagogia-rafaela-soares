@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
+    <title>Postagem | Rafaela Soares</title>
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        Dancing: ['Dancing Script', 'cursive'],
+                    },
+                    colors: {
+                        primary: '#8b5e83',
+                        secondary: '#f4eef3',
+                        terciary: '#f6e9f3',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Estilos base para conteúdo vindo do Quill Editor */
+        .post-content h2, .post-content h3 {
+            font-family: 'Playfair Display', serif;
+            color: #8b5e83;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .post-content h2 { font-size: 1.75rem; }
+        .post-content h3 { font-size: 1.5rem; }
+        .post-content p {
+            margin-bottom: 1.25em;
+            line-height: 1.75;
+            color: #5c4a58;
+        }
+        .post-content ul {
+            list-style-type: disc;
+            padding-left: 1.5em;
+            margin-bottom: 1.25em;
+        }
+        .post-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5em;
+            margin-bottom: 1.25em;
+        }
+        .post-content a {
+            color: #833675;
+            text-decoration: underline;
+        }
+        .post-content img {
+            max-width: 100%;
+            border-radius: 1rem;
+            margin: 2em auto;
+            display: block;
+        }
+    </style>
+</head>
+<body class="font-sans text-[#5c4a58] bg-[#faf8fb]">
+    
+    <header class="fixed top-0 left-0 right-0 z-50 w-full border-b border-[#833675]/8 bg-terciary/95 backdrop-blur-md">
+        <nav class="max-w-4xl mx-auto w-full px-4 sm:px-6 py-3 min-h-[4.5rem] flex items-center justify-between">
+            <a href="index.html" class="inline-flex items-center gap-2 text-[#833675] hover:text-[#6f2c5f] transition-colors font-medium">
+                <span>← Voltar</span>
+            </a>
+            <img src="./img/logo.png" alt="Logo" class="h-10 object-contain">
+        </nav>
+    </header>
+
+    <main class="pt-32 pb-24 px-4 sm:px-6 max-w-3xl mx-auto min-h-screen">
+        <article id="post-container" class="hidden">
+            <time id="post-date" class="text-sm font-medium tracking-wider text-[#833675]/60 uppercase block mb-4"></time>
+            <h1 id="post-title" class="font-serif text-3xl sm:text-5xl text-[#833675] leading-tight mb-8"></h1>
+            <div id="post-content" class="post-content text-base sm:text-lg">
+                <!-- Conteúdo vai aqui -->
+            </div>
+        </article>
+
+        <div id="loading-state" class="text-center py-20">
+            <div class="w-12 h-12 border-4 border-[#833675]/30 border-t-[#833675] rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-[#833675]">Carregando artigo...</p>
+        </div>
+
+        <div id="error-state" class="text-center py-20 hidden">
+            <h2 class="font-serif text-2xl text-[#833675] mb-2">Artigo não encontrado</h2>
+            <p class="text-[#5c4a58] mb-6">O artigo que você procura pode ter sido removido ou o link está incorreto.</p>
+            <a href="index.html" class="inline-block bg-[#833675] text-white px-6 py-3 rounded-full hover:bg-[#6f2c5f] transition-colors">Voltar para a página inicial</a>
+        </div>
+    </main>
+
+    <footer class="border-t border-[#833675]/10 bg-terciary py-8 px-4 text-center">
+        <p class="text-sm text-[#5c4a58]">&copy; 2026 — Todos os direitos reservados.</p>
+    </footer>
+
+    <script type="module" src="post.js"></script>
+</body>
+</html>
