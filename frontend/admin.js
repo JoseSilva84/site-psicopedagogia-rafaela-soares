@@ -1,4 +1,4 @@
-import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, db, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, query, orderBy, storage, ref, uploadBytesResumable, getDownloadURL } from './firebase-config.js';
+import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, db, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, query, orderBy, storage, ref, uploadBytes, getDownloadURL } from './firebase-config.js';
 
 // Elementos HTML
 const loginContainer = document.getElementById('login-container');
@@ -50,35 +50,32 @@ function imageHandler() {
             const uniqueName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-]/g, '');
             const storageRef = ref(storage, 'blog_images/' + uniqueName);
             
-            // Faz o upload
-            const uploadTask = uploadBytesResumable(storageRef, file);
+            // Faz o upload direto e aguarda (resolve problemas de travamento do 'resumable')
+            const snapshot = await uploadBytes(storageRef, file);
             
-            uploadTask.on('state_changed', 
-                (snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    publishBtn.textContent = 'Enviando imagem (' + Math.round(progress) + '%)...';
-                }, 
-                (error) => {
-                    console.error("Erro no upload da imagem:", error);
-                    alert("Falha ao enviar a imagem.");
-                    publishBtn.textContent = 'Publicar Artigo';
-                    publishBtn.disabled = false;
-                }, 
-                async () => {
-                    // Upload concluído com sucesso, pega a URL
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    
-                    // Insere a URL da imagem no editor
-                    const range = quill.getSelection(true);
-                    quill.insertEmbed(range.index, 'image', downloadURL);
-                    quill.setSelection(range.index + 1);
-                    
-                    publishBtn.textContent = 'Publicar Artigo';
-                    publishBtn.disabled = false;
-                }
-            );
+            // Upload concluído com sucesso, pega a URL
+            const downloadURL = await getDownloadURL(snapshot.ref);
+            
+            // Insere a URL da imagem no editor
+            const range = quill.getSelection(true);
+            quill.insertEmbed(range.index, 'image', downloadURL);
+            quill.setSelection(range.index + 1);
+            
+            publishBtn.textContent = 'Publicar Artigo';
+            publishBtn.disabled = false;
+            
         } catch (error) {
-            console.error("Erro ao configurar upload:", error);
+            console.error("Erro no upload da imagem:", error);
+            
+            // Verifica se é erro de regra de segurança (Storage não criado ou restrito)
+            if (error.code === 'storage/unauthorized') {
+                alert("Erro de Permissão: O Firebase Storage não foi ativado no seu painel ou as regras de segurança estão bloqueando.");
+            } else if (error.code === 'storage/invalid-default-bucket' || error.code === 'storage/bucket-not-found') {
+                alert("Erro de Configuração: O Bucket do Storage não existe ou não foi iniciado.");
+            } else {
+                alert("Erro ao enviar a imagem. Veja o console (F12) para detalhes.");
+            }
+            
             publishBtn.textContent = 'Publicar Artigo';
             publishBtn.disabled = false;
         }
