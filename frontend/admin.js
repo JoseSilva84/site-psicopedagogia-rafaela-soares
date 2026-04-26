@@ -1,4 +1,4 @@
-import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, db, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, query, orderBy } from './firebase-config.js';
+import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, db, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, query, orderBy, storage, ref, uploadBytesResumable, getDownloadURL } from './firebase-config.js';
 
 // Elementos HTML
 const loginContainer = document.getElementById('login-container');
@@ -29,6 +29,64 @@ const quill = new Quill('#editor-container', {
         ]
     }
 });
+
+// Handler personalizado para imagens (Faz upload para o Firebase Storage invés de Base64)
+function imageHandler() {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+
+        // Feedback visual
+        publishBtn.textContent = 'Enviando imagem...';
+        publishBtn.disabled = true;
+
+        try {
+            // Cria uma referência única no Storage
+            const uniqueName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-]/g, '');
+            const storageRef = ref(storage, 'blog_images/' + uniqueName);
+            
+            // Faz o upload
+            const uploadTask = uploadBytesResumable(storageRef, file);
+            
+            uploadTask.on('state_changed', 
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    publishBtn.textContent = 'Enviando imagem (' + Math.round(progress) + '%)...';
+                }, 
+                (error) => {
+                    console.error("Erro no upload da imagem:", error);
+                    alert("Falha ao enviar a imagem.");
+                    publishBtn.textContent = 'Publicar Artigo';
+                    publishBtn.disabled = false;
+                }, 
+                async () => {
+                    // Upload concluído com sucesso, pega a URL
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    
+                    // Insere a URL da imagem no editor
+                    const range = quill.getSelection(true);
+                    quill.insertEmbed(range.index, 'image', downloadURL);
+                    quill.setSelection(range.index + 1);
+                    
+                    publishBtn.textContent = 'Publicar Artigo';
+                    publishBtn.disabled = false;
+                }
+            );
+        } catch (error) {
+            console.error("Erro ao configurar upload:", error);
+            publishBtn.textContent = 'Publicar Artigo';
+            publishBtn.disabled = false;
+        }
+    };
+}
+
+// Intercepta o botão de imagem do Toolbar
+quill.getModule('toolbar').addHandler('image', imageHandler);
 
 // Listener de Autenticação - Verifica se logou
 onAuthStateChanged(auth, (user) => {

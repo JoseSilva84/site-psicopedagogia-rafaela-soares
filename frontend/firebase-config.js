@@ -1,9 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import { getFirestore, collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-storage.js";
 
 // SUAS CHAVES DO FIREBASE ABAIXO
-// Substitua essas informações pelas chaves que o Firebase gerar para você ao criar o projeto
 const firebaseConfig = {
   apiKey: "AIzaSyBbhFXd8ry5hyCnrQE1AC_SUGtU1yhGSI4",
   authDomain: "blog-rafaela-3174c.firebaseapp.com",
@@ -18,5 +18,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
-export { app, db, auth, collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy, signInWithEmailAndPassword, onAuthStateChanged, signOut };
+export { 
+  app, db, auth, storage,
+  collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy, 
+  signInWithEmailAndPassword, onAuthStateChanged, signOut,
+  ref, uploadBytesResumable, getDownloadURL
+};
