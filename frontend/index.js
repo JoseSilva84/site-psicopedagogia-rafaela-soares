@@ -211,4 +211,34 @@ ${mensagem}
       }
     });
   });
+
+  // ===== SCROLLSPY (Destacar Menu Ativo) =====
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".menu-link");
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-20% 0px -60% 0px",
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Remove estado ativo de todos
+        navLinks.forEach((link) => {
+            link.classList.remove("bg-[#833675]/10", "font-semibold");
+        });
+        
+        // Adiciona estado ativo no link correspondente
+        const activeId = entry.target.getAttribute("id");
+        const activeLink = document.querySelector(`.menu-link[href="#${activeId}"]`);
+        if (activeLink) {
+          activeLink.classList.add("bg-[#833675]/10", "font-semibold");
+        }
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((sec) => observer.observe(sec));
 });

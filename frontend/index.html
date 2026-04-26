@@ -300,6 +300,21 @@
                 0 0 0 1px rgba(131, 54, 117, 0.06);
         }
 
+        @keyframes float-elegant {
+            0% {
+                translate: 0 0;
+                box-shadow: 0 22px 45px -14px rgba(131, 54, 117, 0.22);
+            }
+            50% {
+                translate: 0 -12px;
+                box-shadow: 0 35px 55px -12px rgba(131, 54, 117, 0.35);
+            }
+            100% {
+                translate: 0 0;
+                box-shadow: 0 22px 45px -14px rgba(131, 54, 117, 0.22);
+            }
+        }
+
         /* Foto do hero: mostrar imagem inteira, sem máscara 3:4 nem anel */
         .hero-photo {
             display: block;
@@ -311,6 +326,7 @@
             object-position: center;
             border-radius: 1.25rem;
             box-shadow: 0 22px 45px -14px rgba(131, 54, 117, 0.22);
+            animation: float-elegant 7s ease-in-out infinite;
         }
 
         @media (min-width: 768px) {
@@ -612,10 +628,17 @@
                 </div>
             </div>
 
-            <div id="blogGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" data-aos="fade-up">
-                <!-- Preenchido por blog.js via renderBlogPosts() após configurar o Firebase -->
+            <div class="relative w-full group hidden" id="blogSliderWrapper" data-aos="fade-up">
+                <button id="blogPrev" class="absolute left-[-10px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white border border-[#833675]/20 text-[#833675] shadow-lg rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none hover:bg-[#833675] hover:text-white disabled:opacity-0" aria-label="Post anterior">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                
+                <div id="blogGrid" class="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth w-full hide-scrollbars pb-8 pt-4"></div>
+                
+                <button id="blogNext" class="absolute right-[-10px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white border border-[#833675]/20 text-[#833675] shadow-lg rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none hover:bg-[#833675] hover:text-white disabled:opacity-0" aria-label="Próximo post">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
             </div>
-
             <div id="blogEmpty"
                 class="mt-1 sm:mt-2 rounded-3xl border border-dashed border-[#833675]/25 bg-white/60 px-6 py-8 sm:px-8 sm:py-10 text-center shadow-inner-glow backdrop-blur-sm">
                 <div class="mx-auto mb-4 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-[#833675]/10 text-[#833675]" aria-hidden="true">
@@ -680,9 +703,9 @@
                 </p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-start min-w-0 w-full">
-                <div id="localizacao" class="space-y-5 text-[#833675] min-w-0 max-w-full" data-aos="fade-up">
-                    <div class="rounded-3xl p-5 sm:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm space-y-6 min-w-0 max-w-full">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch min-w-0 w-full">
+                <div id="localizacao" class="flex flex-col gap-5 text-[#833675] min-w-0 max-w-full h-full" data-aos="fade-up">
+                    <div class="rounded-3xl p-5 sm:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm space-y-6 min-w-0 max-w-full shrink-0">
                         <div>
                             <h3 class="font-serif text-lg text-[#833675] mb-3 flex items-center gap-2 break-words">
                                 <span class="h-1.5 w-1.5 rounded-full bg-[#833675] shrink-0" aria-hidden="true"></span>
@@ -706,7 +729,7 @@
                         </div>
                     </div>
 
-                    <div class="rounded-3xl p-5 sm:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm min-w-0 max-w-full">
+                    <div class="rounded-3xl p-5 sm:p-8 bg-white/80 border border-[#833675]/10 shadow-soft backdrop-blur-sm min-w-0 max-w-full flex-grow flex flex-col">
                         <h3 class="font-serif text-lg text-[#833675] mb-3 flex items-center gap-2 break-words">
                             <span class="h-1.5 w-1.5 rounded-full bg-[#833675] shrink-0" aria-hidden="true"></span>
                             Endereço
@@ -716,10 +739,10 @@
                         </p>
                         <a href="https://www.google.com/maps/search/?api=1&query=Rua+Lauro+Alves+de+Miranda%2C+264%2C+Santa+Paulina%2C+Jaguaribe%2C+CE"
                             target="_blank" rel="noopener noreferrer"
-                            class="inline-flex items-center gap-2 text-sm font-medium text-white bg-[#833675] px-4 py-2.5 rounded-full hover:bg-[#6f2c5f] shadow-soft transition-all duration-300 cursor-pointer">
+                            class="inline-flex items-center self-start gap-2 text-sm font-medium text-white bg-[#833675] px-4 py-2.5 rounded-full hover:bg-[#6f2c5f] shadow-soft transition-all duration-300 cursor-pointer">
                             Abrir no Google Maps
                         </a>
-                        <div class="mt-6 rounded-2xl overflow-hidden shadow-soft-lg border border-[#833675]/10 aspect-video min-h-[200px] max-w-full ring-1 ring-black/5">
+                        <div class="mt-6 rounded-2xl overflow-hidden shadow-soft-lg border border-[#833675]/10 flex-grow relative min-h-[200px] w-full ring-1 ring-black/5">
                             <iframe
                                 title="Localização no Google Maps — Rua Lauro Alves de Miranda, Jaguaribe, CE"
                                 class="w-full h-full min-h-[200px] border-0 max-w-full"
@@ -763,7 +786,7 @@
         <div class="max-w-6xl mx-auto flex flex-col items-center justify-center gap-4 text-[#833675] min-w-0 w-full">
             <img src="./img/logoFooter.png" alt="Rafaela Soares — logo" class="h-10 sm:h-16 w-auto object-contain opacity-90">
             <p class="text-center text-[0.75rem] sm:text-sm leading-relaxed text-[#5c4a58] min-w-0">
-                &copy; 2026 — Todos os direitos reservados.<br class="sm:hidden" /> Desenvolvido por <a href="https://wa.me/5575992456130" target="_blank" rel="noopener noreferrer" class="text-[#833675] font-medium underline-offset-2 hover:underline transition-colors">José Silva</a>.
+                <a href="admin.html" title="Área Restrita" class="hover:text-[#833675] cursor-pointer transition-colors">&copy;</a> 2026 — Todos os direitos reservados.<br class="sm:hidden" /> Desenvolvido por <a href="https://portfolio-oficial-seven.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-[#833675] font-medium underline-offset-2 hover:underline transition-colors">José Silva</a>.
             </p>
         </div>
     </footer>
