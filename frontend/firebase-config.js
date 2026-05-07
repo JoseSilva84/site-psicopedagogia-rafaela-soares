@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-import { getFirestore, collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
 // SUAS CHAVES DO FIREBASE ABAIXO
@@ -20,6 +20,6 @@ const auth = getAuth(app);
 
 export {
   app, db, auth,
-  collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy,
+  collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy, onSnapshot,
   signInWithEmailAndPassword, onAuthStateChanged, signOut
 };

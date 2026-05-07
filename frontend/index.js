@@ -119,6 +119,15 @@ ${mensagem}
   // ===== SLIDER =====
   // Gerenciado pelo módulo galeria.js (carrega do Firebase Storage)
 
+  // Refresh manual da galeria (botão na UI)
+  const refreshGaleriaBtn = document.getElementById('refreshGaleriaFront');
+  if (refreshGaleriaBtn && window.atualizarGaleriaFront) {
+    refreshGaleriaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.atualizarGaleriaFront();
+    });
+  }
+
 
   (function () {
     const slider    = document.getElementById("depoimentosSlider");

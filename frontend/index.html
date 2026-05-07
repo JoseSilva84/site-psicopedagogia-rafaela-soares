@@ -574,6 +574,12 @@
                 <h2 class="font-serif text-3xl sm:text-[2rem] text-[#833675]">
                     Galeria de fotos
                 </h2>
+                <!-- Botão refresh manual -->
+                <button id="refreshGaleriaFront"
+                        class="mt-3 text-xs text-[#833675]/70 border border-[#833675]/20 px-3 py-1.5 rounded-full hover:bg-white hover:border-[#833675]/40 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#833675]/40"
+                        aria-label="Atualizar galeria">
+                    ↻ Atualizar
+                </button>
             </div>
 
             <!-- Slider principal com indicador de progresso -->
@@ -629,19 +635,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
-                    </button>
-
-                    <!-- Botão para lightbox -->
-                    <button type="button"
-                            id="openLightbox"
-                            aria-label="Ver em tela cheia"
-                            class="absolute bottom-4 right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 text-[#833675] text-sm font-medium shadow-soft ring-1 ring-[#833675]/20 hover:bg-[#833675] hover:text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#833675]/40 cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                        </svg>
-                        Ampliar
-                    </button>
-                </div>
+                     </button>
+                 </div>
 
                 <!-- Indicadores visuais (dots) -->
                 <div id="galeriaDots" class="flex justify-center gap-2 mt-6" role="tablist" aria-label="Selecionar foto"></div>
@@ -944,49 +939,6 @@
 
     </div>
     <!-- /#site — FABs fora do wrapper para não serem afetados por overflow-x -->
-
-    <!-- Lightbox Modal -->
-    <div id="lightbox"
-         class="fixed inset-0 z-[9998] hidden items-center justify-center bg-black/85 backdrop-blur-sm transition-opacity duration-300"
-         role="dialog"
-         aria-modal="true"
-         aria-label="Visualização de imagem em tela cheia">
-        <button type="button"
-                id="closeLightbox"
-                aria-label="Fechar visualização"
-                class="absolute top-4 right-4 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-
-        <button type="button"
-                id="lightboxPrev"
-                aria-label="Imagem anterior"
-                class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-
-        <button type="button"
-                id="lightboxNext"
-                aria-label="Próxima imagem"
-                class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
-
-        <div class="relative max-w-[90vw] max-h-[90vh] p-2">
-            <img id="lightboxImage"
-                 src=""
-                 alt=""
-                 class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-                 loading="eager">
-            <p id="lightboxCaption" class="sr-only"></p>
-        </div>
-    </div>
 
     <a href="https://www.instagram.com/rafapedagoga?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
         target="_blank" rel="noopener noreferrer"
