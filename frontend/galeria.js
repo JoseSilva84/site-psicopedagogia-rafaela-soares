@@ -67,14 +67,15 @@ class Slider {
 
 /* ─────────────────────────────────────────────
    Inicialização
-───────────────────────────────────────────── */
+ ───────────────────────────────────────────── */
 async function init() {
-  const fotos = await carregarFotos();
+  const fotosGaleria = await carregarFotos(); // Imagens do Firestore (galeria)
+  const fotosSobre   = FALLBACK_IMAGES;        // Imagens locais fixas (1.png e 11.jpg)
 
   // ── Slider da seção "Galeria" ──────────────
   const sliderGaleria = new Slider({
     elementId: 'galeriaSlider',
-    images:    fotos,
+    images:    fotosGaleria,
     interval:  3000,
   });
 
@@ -90,7 +91,7 @@ async function init() {
   // ── Slider da seção "Sobre" ─────────────────
   new Slider({
     elementId: 'slider',
-    images:    fotos,
+    images:    fotosSobre,
     interval:  2000,
   });
 }
