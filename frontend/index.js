@@ -117,75 +117,9 @@ ${mensagem}
   }
 
   // ===== SLIDER =====
-  class ImageRotator {
-    constructor(config) {
-      this.element = document.getElementById(config.elementId);
-      if (!this.element) return;
+  // Gerenciado pelo módulo galeria.js (carrega do Firebase Storage)
 
-      this.images = config.images;
-      this.interval = config.interval || 3000;
-      this.currentIndex = 0;
-      this.intervalId = null;
-      this.start();
-    }
 
-    start() {
-      this.intervalId = setInterval(() => this.nextImage(), this.interval);
-    }
-
-    stop() {
-      if (this.intervalId) {
-        clearInterval(this.intervalId);
-        this.intervalId = null;
-      }
-    }
-
-    nextImage() {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length;
-      this.element.src = this.images[this.currentIndex];
-    }
-
-    prevImage() {
-      this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-      this.element.src = this.images[this.currentIndex];
-    }
-
-    goToImage(index) {
-      this.currentIndex = index % this.images.length;
-      this.element.src = this.images[this.currentIndex];
-    }
-  }
-
-  const sliderRotator = new ImageRotator({
-    elementId: "slider",
-    images: ["./img/1.png", "./img/11.jpg"],
-    interval: 2000,
-  });
-
-  const galeriaRotator = new ImageRotator({
-    elementId: "galeriaSlider",
-    images: ["./img/1.png", "./img/11.jpg"],
-    interval: 3000,
-  });
-
-  const prevGaleria = document.getElementById("prevGaleria");
-  const nextGaleria = document.getElementById("nextGaleria");
-  if (prevGaleria && galeriaRotator.element) {
-    prevGaleria.addEventListener("click", () => {
-      galeriaRotator.prevImage();
-      galeriaRotator.stop();
-      setTimeout(() => galeriaRotator.start(), 5000);
-    });
-  }
-  if (nextGaleria && galeriaRotator.element) {
-    nextGaleria.addEventListener("click", () => {
-      galeriaRotator.nextImage();
-      galeriaRotator.stop();
-      setTimeout(() => galeriaRotator.start(), 5000);
-    });
-  }
-
-  // ===== DEPOIMENTOS CAROUSEL =====
   (function () {
     const slider    = document.getElementById("depoimentosSlider");
     const prevBtn   = document.getElementById("depPrev");

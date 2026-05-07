@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administração do Blog | Rafaela Soares</title>
+    <title>Administração | Rafaela Soares</title>
     
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
@@ -19,13 +19,18 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
+                        serif:   ['Playfair Display', 'serif'],
+                        sans:    ['Inter', 'sans-serif'],
+                        Dancing: ['Dancing Script', 'cursive'],
                     },
                     colors: {
-                        primary: '#8b5e83',
+                        primary:   '#8b5e83',
                         secondary: '#f4eef3',
-                        terciary: '#f6e9f3',
+                        terciary:  '#f6e9f3',
+                    },
+                    boxShadow: {
+                        soft:    '0 4px 24px -4px rgba(131,54,117,0.08)',
+                        'soft-lg': '0 20px 50px -12px rgba(131,54,117,0.12)',
                     }
                 }
             }
@@ -34,65 +39,169 @@
 
     <!-- Quill Editor CSS -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <style>
+        .tab-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #833675;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .tab-btn:hover  { background: rgba(131,54,117,0.07); }
+        .tab-btn.active {
+            background: #833675;
+            color: #fff;
+            border-color: #833675;
+        }
+
+        /* Drop-zone */
+        #drop-zone {
+            border: 2px dashed rgba(131,54,117,0.3);
+            transition: border-color 0.2s, background 0.2s;
+        }
+        #drop-zone.drag-over {
+            border-color: #833675;
+            background: rgba(131,54,117,0.05);
+        }
+
+        /* Progress bar */
+        #upload-progress-bar {
+            transition: width 0.3s ease;
+        }
+
+        /* Gallery grid */
+        .foto-card img {
+            transition: transform 0.3s ease;
+        }
+        .foto-card:hover img { transform: scale(1.04); }
+    </style>
 </head>
 <body class="font-sans text-[#5c4a58] bg-[#faf8fb] min-h-screen p-4 sm:p-8">
 
-    <div class="max-w-4xl mx-auto py-8">
+    <div class="max-w-5xl mx-auto py-8">
         <header class="mb-10 text-center">
-            <h1 class="font-serif text-3xl sm:text-4xl text-[#833675]">Gestão de Conteúdo</h1>
-            <p class="text-sm text-[#833675]/80 mt-2">Área restrita - Rafaela Soares Psicopedagogia</p>
+            <span class="font-Dancing text-2xl text-[#833675]">Rafaela Soares</span>
+            <h1 class="font-serif text-3xl sm:text-4xl text-[#833675] mt-1">Gestão de Conteúdo</h1>
+            <p class="text-sm text-[#833675]/70 mt-2">Área restrita · Psicopedagogia Clínica</p>
         </header>
 
-        <!-- CONTAINER LOGIN -->
-        <div id="login-container" class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-lg border border-[#833675]/10">
+        <!-- ══════ LOGIN ══════ -->
+        <div id="login-container" class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-soft-lg border border-[#833675]/10">
             <h2 class="font-serif text-2xl text-[#833675] mb-6 text-center">Login</h2>
             <form id="login-form" class="flex flex-col gap-4">
                 <div>
-                    <label class="block text-sm font-medium mb-1">E-mail</label>
+                    <label class="block text-sm font-medium mb-1" for="email">E-mail</label>
                     <input type="email" id="email" class="w-full border border-[#833675]/20 rounded-xl px-4 py-3 focus:outline-none focus:border-[#833675] bg-secondary" required>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Senha</label>
+                    <label class="block text-sm font-medium mb-1" for="password">Senha</label>
                     <input type="password" id="password" class="w-full border border-[#833675]/20 rounded-xl px-4 py-3 focus:outline-none focus:border-[#833675] bg-secondary" required>
                 </div>
                 <button type="submit" class="bg-[#833675] text-white py-3 rounded-full mt-4 font-medium hover:bg-[#6f2c5f] transition-colors">Entrar</button>
             </form>
-            <p id="login-error" class="text-red-500 text-sm mt-4 text-center hidden">Erro ao fazer login. Verifique as credenciais.</p>
+            <p id="login-error" class="text-red-500 text-sm mt-4 text-center hidden">Credenciais inválidas. Tente novamente.</p>
         </div>
 
-        <!-- CONTAINER ADMIN (oculto por padrão) -->
+        <!-- ══════ PAINEL ADMIN (oculto até login) ══════ -->
         <div id="admin-container" class="hidden">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="font-serif text-2xl text-[#833675]">Novo Artigo</h2>
+
+            <!-- Cabeçalho do painel -->
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex gap-2">
+                    <button id="tab-blog"    class="tab-btn active" data-panel="panel-blog">📝 Blog</button>
+                    <button id="tab-galeria" class="tab-btn"        data-panel="panel-galeria">🖼️ Galeria</button>
+                </div>
                 <button id="logout-btn" class="text-sm font-medium border border-[#833675] text-[#833675] px-4 py-2 rounded-full hover:bg-secondary transition-colors">Sair</button>
             </div>
 
-            <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-lg border border-[#833675]/10 mb-10">
-                <input type="text" id="post-title" placeholder="Título do Artigo" class="w-full font-serif text-xl sm:text-2xl text-[#833675] border-b-2 border-[#833675]/20 focus:outline-none focus:border-[#833675] pb-2 mb-4 bg-transparent outline-none">
-                
-                <textarea id="post-excerpt" placeholder="Resumo do artigo (aparecerá na página principal)" class="w-full text-sm text-[#5c4a58] border border-[#833675]/20 rounded-xl p-3 mb-6 focus:outline-none focus:border-[#833675] resize-none h-20 outline-none"></textarea>
-                
-                <!-- Quill Editor -->
-                <div class="rounded-xl border border-[#833675]/20 overflow-hidden mb-6 bg-white">
-                    <div id="editor-container" class="h-64 rounded-b-xl border-none"></div>
+            <!-- ─────── PAINEL: BLOG ─────── -->
+            <div id="panel-blog">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-soft border border-[#833675]/10 mb-8">
+                    <h2 class="font-serif text-xl text-[#833675] mb-5">Novo Artigo</h2>
+                    <input type="text" id="post-title" placeholder="Título do Artigo"
+                        class="w-full font-serif text-xl sm:text-2xl text-[#833675] border-b-2 border-[#833675]/20 focus:outline-none focus:border-[#833675] pb-2 mb-4 bg-transparent">
+                    
+                    <textarea id="post-excerpt" placeholder="Resumo do artigo (aparecerá na página principal)"
+                        class="w-full text-sm text-[#5c4a58] border border-[#833675]/20 rounded-xl p-3 mb-6 focus:outline-none focus:border-[#833675] resize-none h-20"></textarea>
+                    
+                    <div class="rounded-xl border border-[#833675]/20 overflow-hidden mb-6 bg-white">
+                        <div id="editor-container" class="h-64 rounded-b-xl border-none"></div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <p id="publish-status" class="text-sm text-green-600 hidden font-medium">✅ Publicado com sucesso!</p>
+                        <button id="publish-btn" class="bg-[#833675] text-white px-8 py-3 rounded-full font-medium shadow-soft hover:bg-[#6f2c5f] transition-all w-full sm:w-auto">
+                            Publicar Artigo
+                        </button>
+                    </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p id="publish-status" class="text-sm text-green-600 hidden font-medium">Publicado com sucesso!</p>
-                    <button id="publish-btn" class="bg-[#833675] text-white px-8 py-3 rounded-full font-medium shadow-lg hover:bg-[#6f2c5f] transition-all w-full sm:w-auto">Publicar Artigo</button>
-                </div>
+                <h2 class="font-serif text-xl text-[#833675] mb-4">Artigos Publicados</h2>
+                <div id="posts-list" class="grid sm:grid-cols-2 gap-4"></div>
             </div>
 
-            <h2 class="font-serif text-xl text-[#833675] mb-4">Seus Artigos Publicados</h2>
-            <div id="posts-list" class="grid sm:grid-cols-2 gap-4">
-                <!-- Posts listados aqui -->
+            <!-- ─────── PAINEL: GALERIA ─────── -->
+            <div id="panel-galeria" class="hidden">
+
+                <!-- Upload area -->
+                <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-soft border border-[#833675]/10 mb-8">
+                    <h2 class="font-serif text-xl text-[#833675] mb-2">Adicionar Fotos</h2>
+                    <p class="text-sm text-[#5c4a58]/70 mb-5">Formatos aceitos: JPG, PNG, WebP · Múltiplos arquivos permitidos.</p>
+
+                    <!-- Drop zone -->
+                    <div id="drop-zone"
+                        class="rounded-2xl p-8 sm:p-12 text-center cursor-pointer select-none mb-5"
+                        role="button" aria-label="Clique ou arraste fotos aqui">
+                        <div class="flex flex-col items-center gap-3 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-[#833675]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                            <p class="font-medium text-[#833675]">Clique ou arraste fotos aqui</p>
+                            <p class="text-xs text-[#5c4a58]/50">JPG · PNG · WebP</p>
+                        </div>
+                        <input type="file" id="foto-input" accept="image/jpeg,image/png,image/webp" multiple class="hidden">
+                    </div>
+
+                    <!-- Progress -->
+                    <div id="upload-progress-wrap" class="hidden mb-4">
+                        <div class="flex justify-between text-xs text-[#833675] mb-1">
+                            <span id="upload-filename" class="truncate max-w-[70%]">Enviando...</span>
+                            <span id="upload-percent">0%</span>
+                        </div>
+                        <div class="w-full bg-[#833675]/10 rounded-full h-2">
+                            <div id="upload-progress-bar" class="bg-[#833675] h-2 rounded-full w-0"></div>
+                        </div>
+                    </div>
+
+                    <p id="upload-success" class="text-sm text-green-600 font-medium hidden mb-2">✅ Foto enviada com sucesso!</p>
+                    <p id="upload-error"   class="text-sm text-red-500  font-medium hidden mb-2">❌ Erro ao enviar. Tente novamente.</p>
+                </div>
+
+                <!-- Fotos existentes -->
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-serif text-xl text-[#833675]">Fotos na Galeria</h2>
+                    <button id="refresh-galeria" class="text-xs text-[#833675] border border-[#833675]/30 px-3 py-1.5 rounded-full hover:bg-secondary transition-colors">
+                        ↻ Atualizar
+                    </button>
+                </div>
+                <div id="galeria-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Fotos injetadas via JS -->
+                </div>
+                <p id="galeria-empty" class="hidden text-sm text-[#5c4a58]/60 mt-4 text-center py-8">
+                    Nenhuma foto na galeria ainda. Faça o upload acima.
+                </p>
             </div>
-        </div>
+
+        </div><!-- /#admin-container -->
     </div>
 
     <!-- Quill Editor JS -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <!-- Script principal de lógica de Admin -->
+    <!-- Script principal -->
     <script type="module" src="admin.js"></script>
 </body>
 </html>

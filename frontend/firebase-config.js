@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
 import { getFirestore, collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-storage.js";
 
 // SUAS CHAVES DO FIREBASE ABAIXO
 const firebaseConfig = {
@@ -15,14 +14,12 @@ const firebaseConfig = {
 };
 
 // Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app  = initializeApp(firebaseConfig);
+const db   = getFirestore(app);
 const auth = getAuth(app);
-const storage = getStorage(app);
 
-export { 
-  app, db, auth, storage,
-  collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy, 
-  signInWithEmailAndPassword, onAuthStateChanged, signOut,
-  ref, uploadBytes, getDownloadURL
+export {
+  app, db, auth,
+  collection, getDocs, getDoc, addDoc, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy,
+  signInWithEmailAndPassword, onAuthStateChanged, signOut
 };
