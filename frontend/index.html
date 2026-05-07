@@ -407,6 +407,7 @@
                             <a href="#galeria" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Fotos</a>
                             <a href="#abordagem" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Abordagem</a>
                             <a href="#blog" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Blog</a>
+                            <a href="#depoimentos" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Depoimentos</a>
                             <a href="#faq" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">FAQ</a>
                             <a href="#contato" class="menu-link px-2 py-1.5 rounded-full hover:bg-[#833675]/10 cursor-pointer">Contato</a>
                         </div>
@@ -436,6 +437,7 @@
                 <a href="#galeria" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Fotos</a>
                 <a href="#abordagem" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Abordagem</a>
                 <a href="#blog" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Blog</a>
+                <a href="#depoimentos" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Depoimentos</a>
                 <a href="#faq" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">FAQ</a>
                 <a href="#contato" class="mobile-link py-3 rounded-xl hover:bg-[#833675]/8 transition-colors">Contato</a>
             </nav>
@@ -653,6 +655,72 @@
             </div>
         </div>
     </section>
+
+    <!-- DEPOIMENTOS -->
+    <section id="depoimentos" class="py-12 sm:py-20 px-4 sm:px-6 w-full max-w-full min-w-0 overflow-x-clip bg-gradient-to-b from-secondary to-white">
+        <div class="max-w-4xl mx-auto w-full min-w-0">
+            <div class="text-center mb-10 sm:mb-14" data-aos="fade-up">
+                <p class="section-kicker mb-3">O que dizem</p>
+                <h2 class="font-serif text-3xl sm:text-[2rem] text-[#833675] leading-tight">
+                    Depoimentos
+                </h2>
+                <p class="text-[#5c4a58] text-sm sm:text-base mt-2 leading-relaxed">
+                    A experiência de quem passou pelo nosso atendimento.
+                </p>
+            </div>
+
+            <!-- Carousel wrapper -->
+            <div class="relative" data-aos="fade-up">
+                <!-- Cards container -->
+                <div id="depoimenToTrack" class="overflow-hidden">
+                    <div id="depoimentosSlider" class="flex transition-transform duration-500 ease-in-out">
+
+                        <!-- Card 1 -->
+                        <div class="depoimento-slide w-full shrink-0 px-2 sm:px-4">
+                            <div class="relative rounded-3xl bg-white/90 border border-[#833675]/12 shadow-soft-lg p-7 sm:p-10 text-center backdrop-blur-sm">
+                                <!-- aspas decorativas -->
+                                <span class="absolute top-5 left-6 text-[5rem] leading-none text-[#833675]/10 font-serif select-none" aria-hidden="true">&ldquo;</span>
+                                <p class="relative z-10 text-[#5c4a58] text-base sm:text-lg leading-relaxed italic mb-7">
+                                    &ldquo;Quero agradecer por toda a atenção dada ao meu filho, mesmo em tão pouco tempo.
+                                    Que seja só o começo de um processo de aprendizagem e evolução no desenvolvimento dele.
+                                    Obrigada pela sua atenção e dedicação!&rdquo;
+                                </p>
+                                <div class="flex flex-col items-center gap-1">
+                                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#833675]/10 text-[#833675] font-serif font-bold text-lg">M</span>
+                                    <span class="font-semibold text-[#833675] text-sm">Mãe de paciente</span>
+                                    <span class="text-[#5c4a58]/60 text-xs">Jaguaribe, CE</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Adicione mais .depoimento-slide aqui no futuro -->
+
+                    </div>
+                </div>
+
+                <!-- Seta esquerda -->
+                <button type="button" id="depPrev"
+                    aria-label="Depoimento anterior"
+                    class="absolute left-[-0.5rem] sm:left-[-1.25rem] top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-white border border-[#833675]/20 text-[#833675] shadow-soft hover:bg-[#833675] hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Seta direita -->
+                <button type="button" id="depNext"
+                    aria-label="Próximo depoimento"
+                    class="absolute right-[-0.5rem] sm:right-[-1.25rem] top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-white border border-[#833675]/20 text-[#833675] shadow-soft hover:bg-[#833675] hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Dots -->
+            <div id="depDots" class="flex justify-center gap-2 mt-7" role="tablist" aria-label="Selecionar depoimento"></div>
+        </div>
+    </section>
+    <!-- FIM DEPOIMENTOS -->
 
     <!-- FAQ -->
     <section id="faq" class="bg-secondary py-12 sm:py-20 px-4 sm:px-6 w-full max-w-full min-w-0 overflow-x-clip">
