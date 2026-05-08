@@ -139,6 +139,7 @@ ${mensagem}
     const slides = slider.querySelectorAll(".depoimento-slide");
     const total  = slides.length;
     let current  = 0;
+    let autoplayTimer = null;
 
     // Build dots
     function buildDots() {
@@ -181,19 +182,28 @@ ${mensagem}
       updateUI();
     }
 
-    prevBtn.addEventListener("click", () => goTo(current - 1));
-    nextBtn.addEventListener("click", () => goTo(current + 1));
+    function startAutoplay() {
+      autoplayTimer = setInterval(() => goTo(current + 1), 8000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+    }
+
+    prevBtn.addEventListener("click", () => { stopAutoplay(); goTo(current - 1); startAutoplay(); });
+    nextBtn.addEventListener("click", () => { stopAutoplay(); goTo(current + 1); startAutoplay(); });
 
     // Touch/swipe support
     let touchStartX = 0;
     slider.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
     slider.addEventListener("touchend", (e) => {
       const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+      if (Math.abs(diff) > 40) { stopAutoplay(); goTo(diff > 0 ? current + 1 : current - 1); startAutoplay(); }
     });
 
     buildDots();
     updateUI();
+    startAutoplay();
   })();
 
   // ===== FAQ =====
