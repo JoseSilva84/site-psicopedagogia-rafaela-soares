@@ -5,16 +5,53 @@
 
 import { db, collection, getDocs, query, orderBy, onSnapshot } from './firebase-config.js';
 
-const FALLBACK = ['./img/1.png', './img/11.jpeg'];
+const FALLBACK = ['./img/1.png', './img/11.jpg'];
 
-async function loadInitial() {
+function preloadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve({ img, width: img.width, height: img.height });
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+function resizeImageToMatch(src, targetWidth, targetHeight) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+      resolve(canvas.toDataURL('image/jpeg', 0.85));
+    };
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+async function loadInitial(refSize = null) {
+  let width, height;
+  if (refSize) {
+    ({ width, height } = refSize);
+  } else {
+    const refImg = await preloadImage(FALLBACK[0]);
+    width = refImg.width;
+    height = refImg.height;
+  }
+  
   try {
     const q = query(collection(db, 'galeria'), orderBy('criadoEm', 'asc'));
     const snap = await getDocs(q);
-    return snap.empty ? FALLBACK : snap.docs.map(d => d.data().base64).filter(Boolean);
+    if (snap.empty) {
+      return [FALLBACK[0], await resizeImageToMatch(FALLBACK[1], width, height)];
+    }
+    return snap.docs.map(d => d.data().base64).filter(Boolean);
   } catch (e) {
     console.warn('[galeria] Erro, usando fallback:', e);
-    return FALLBACK;
+    return [FALLBACK[0], await resizeImageToMatch(FALLBACK[1], width, height)];
   }
 }
 
@@ -101,8 +138,11 @@ class Slider {
 let gallery = null;
 
 async function init() {
-  const galeriaImgs = await loadInitial();
-  const sobreImgs   = FALLBACK;
+  const refImg = await preloadImage(FALLBACK[0]);
+  const size = { width: refImg.width, height: refImg.height };
+  
+  const galeriaImgs = await loadInitial(size);
+  const sobreImgs   = [FALLBACK[0], await resizeImageToMatch(FALLBACK[1], size.width, size.height)];
 
   gallery = new Slider({ elId: 'galeriaSlider', images: galeriaImgs, interval: 4000 });
   new Slider({ elId: 'slider', images: sobreImgs, interval: 5000 });
@@ -116,7 +156,8 @@ async function init() {
 
   window.sliderGaleria = gallery;
   window.atualizarGaleriaFront = async () => {
-    const fotos = await loadInitial();
+    const refImg = await preloadImage(FALLBACK[0]);
+    const fotos = await loadInitial({ width: refImg.width, height: refImg.height });
     gallery.update(fotos);
   };
 }
