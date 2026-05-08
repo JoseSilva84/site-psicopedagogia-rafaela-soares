@@ -7,51 +7,14 @@ import { db, collection, getDocs, query, orderBy, onSnapshot } from './firebase-
 
 const FALLBACK = ['./img/1.png', './img/11.jpg'];
 
-function preloadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve({ img, width: img.width, height: img.height });
-    img.onerror = reject;
-    img.src = src;
-  });
-}
-
-function resizeImageToMatch(src, targetWidth, targetHeight) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = targetWidth;
-      canvas.height = targetHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-      resolve(canvas.toDataURL('image/jpeg', 0.85));
-    };
-    img.onerror = reject;
-    img.src = src;
-  });
-}
-
-async function loadInitial(refSize = null) {
-  let width, height;
-  if (refSize) {
-    ({ width, height } = refSize);
-  } else {
-    const refImg = await preloadImage(FALLBACK[0]);
-    width = refImg.width;
-    height = refImg.height;
-  }
-  
+async function loadInitial() {
   try {
     const q = query(collection(db, 'galeria'), orderBy('criadoEm', 'asc'));
     const snap = await getDocs(q);
-    if (snap.empty) {
-      return [FALLBACK[0], await resizeImageToMatch(FALLBACK[1], width, height)];
-    }
-    return snap.docs.map(d => d.data().base64).filter(Boolean);
+    return snap.empty ? FALLBACK : snap.docs.map(d => d.data().base64).filter(Boolean);
   } catch (e) {
     console.warn('[galeria] Erro, usando fallback:', e);
-    return [FALLBACK[0], await resizeImageToMatch(FALLBACK[1], width, height)];
+    return FALLBACK;
   }
 }
 
@@ -138,11 +101,8 @@ class Slider {
 let gallery = null;
 
 async function init() {
-  const refImg = await preloadImage(FALLBACK[0]);
-  const size = { width: refImg.width, height: refImg.height };
-  
-  const galeriaImgs = await loadInitial(size);
-  const sobreImgs   = [FALLBACK[0], await resizeImageToMatch(FALLBACK[1], size.width, size.height)];
+  const galeriaImgs = await loadInitial();
+  const sobreImgs   = FALLBACK;
 
   gallery = new Slider({ elId: 'galeriaSlider', images: galeriaImgs, interval: 4000 });
   new Slider({ elId: 'slider', images: sobreImgs, interval: 5000 });
@@ -156,8 +116,7 @@ async function init() {
 
   window.sliderGaleria = gallery;
   window.atualizarGaleriaFront = async () => {
-    const refImg = await preloadImage(FALLBACK[0]);
-    const fotos = await loadInitial({ width: refImg.width, height: refImg.height });
+    const fotos = await loadInitial();
     gallery.update(fotos);
   };
 }
