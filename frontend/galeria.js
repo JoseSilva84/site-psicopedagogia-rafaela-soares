@@ -5,7 +5,7 @@
 
 import { db, collection, getDocs, query, orderBy, onSnapshot } from './firebase-config.js';
 
-const FALLBACK = ['./img/1.png', './img/11.jpg'];
+const FALLBACK = ['./img/1.png', './img/11.jpeg'];
 
 async function loadInitial() {
   try {
